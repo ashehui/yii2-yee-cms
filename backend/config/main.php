@@ -8,7 +8,8 @@ $params = array_merge(
 
 return [
     'id' => 'backend',
-    'homeUrl' => '/admin',
+    'name' => '观天数据管理后台',
+    'homeUrl' => '/cms',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -29,12 +30,24 @@ return [
             'class' => 'yeesoft\media\MediaModule',
             'routes' => [
                 'baseUrl' => '', // Base absolute path to web directory
-                'basePath' => '@frontend/web', // Base web directory url
+                'basePath' => '@root', // Base web directory url
                 'uploadPath' => 'uploads', // Path for uploaded files in web directory
             ],
         ],
         'post' => [
             'class' => 'yeesoft\post\PostModule',
+            'components' => [
+                'view' => [
+                    'class' => 'yii\web\View',
+                    'theme' => [
+                        'basePath' => '@app/themes/post',
+                        'baseUrl' => '@web/themes/post',
+                        'pathMap' => [
+                            '@app/views' => '@app/themes/post',
+                        ],
+                    ],
+                ],
+            ]
         ],
         'page' => [
             'class' => 'yeesoft\page\PageModule',
@@ -48,13 +61,16 @@ return [
     ],
     'components' => [
         'request' => [
-            'baseUrl' => '/admin',
+            'baseUrl' => '/cms',
+            'csrfParam' => '_csrf-backend',
         ],
-        'assetManager' => [
-            'bundles' => [
-                'yii\bootstrap\BootstrapAsset' => [
-                    'sourcePath' => '@yeesoft/yii2-yee-core/assets/theme/bootswatch/custom',
-                    'css' => ['bootstrap.css']
+        'view' => [
+            'class' => 'yii\web\View',
+            'theme' => [
+                'basePath' => '@app/themes/post',
+                'baseUrl' => '@web/themes/post',
+                'pathMap' => [
+                    '@vendor/yeesoft/yii2-yee-post/views' => '@app/themes/post',
                 ],
             ],
         ],
