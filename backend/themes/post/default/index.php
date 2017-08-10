@@ -19,8 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="post-index">
 
     <p>
-        <?= Html::a(Yii::t('yee', 'Add New'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('yee/media', 'Categories'), ['/post/category/index'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('yee', 'Add New'), ['create'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('yee/media', 'Categories'), ['/post/category/index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <div class="panel panel-default">
