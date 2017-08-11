@@ -7,7 +7,8 @@ use yeesoft\post\models\Post;
 use yeesoft\post\models\Tag;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
+use mapi\actions\PostAction;
+
 use yii\web\NotFoundHttpException;
 
 /**
@@ -15,7 +16,6 @@ use yii\web\NotFoundHttpException;
  */
 class ArticleController extends \yii\web\Controller
 {
-
     public function actionIndex($slug='')
     {
         // display home page
@@ -30,17 +30,8 @@ class ArticleController extends \yii\web\Controller
 
         }
 
-        //try to display post from datebase
-        $post = Post::findOne(['slug' => $slug, 'status' => Post::STATUS_PUBLISHED]);
-
-        if ($post) {
-            $post->updateCounters(['view_count' => 1]);
-            $data = $this->getApiData($post, true);
-            return $data;
-        }
-
         //if nothing suitable was found then throw 404 error
-        throw new \yii\web\NotFoundHttpException('Page not found.');
+        throw new NotFoundHttpException('Page not found.');
     }
 
 
@@ -99,20 +90,20 @@ class ArticleController extends \yii\web\Controller
         $data = [];
         $data['title'] = $model->title;
         $data['view_count'] = $model->view_count;
-        $data['thumbnail'] = Yii::$app->urlManager->hostInfo.$model->thumbnail;
+        $data['thumbnail'] = empty($model->thumbnail) ? '' : Yii::$app->urlManager->hostInfo.$model->thumbnail;
         $data['updated_at'] = $model->updated_at;
-        $data['category'] = $model->category->title;
-        $data['categoryUrl'] = Yii::$app->urlManager->createAbsoluteUrl(['/category/'.$model->category->slug]);
+        $data['category'] = $model->category->title ?? '';
+        $data['category_url'] = empty($model->category->slug) ? '' :  Yii::$app->urlManager->createAbsoluteUrl(['/article/category', 'slug'=>$model->category->slug]);
 
         $data['tags'] = [];
         foreach($model->tags as $tag) {
             $data['tags'][] = [
                 'title' => $tag->title,
-                'tagUrl' => Yii::$app->urlManager->createAbsoluteUrl(['/tag/'.$tag->slug])
+                'tag_url' => Yii::$app->urlManager->createAbsoluteUrl(['/article/tag', 'slug'=>$tag->slug])
             ];
         }
 
-        $data['detailUrl'] = Yii::$app->urlManager->createAbsoluteUrl(['/article/'.$model->slug]);
+        $data['detail_url'] = Yii::$app->urlManager->createAbsoluteUrl(['/article/index', 'year'=>date('Y', $model->published_at), 'month'=>date('m', $model->published_at), 'slug'=>$model->slug]);
 
         if ($isDetail) {
             $data['content'] = $model->content;

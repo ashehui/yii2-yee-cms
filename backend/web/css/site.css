@@ -75,3 +75,7 @@ a.desc:after {
 .grid-view th {
     white-space: nowrap;
 }
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+    margin: 4px 0 0;
+}

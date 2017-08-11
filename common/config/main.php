@@ -8,8 +8,8 @@ return [
     'components' => [
         'yee' => [
             'class' => 'yeesoft\Yee',
-            'languages' => ['zh-CN' => '中文', 'en-US' => 'English'],
-            'languageRedirects' => ['zh-CN' => 'zh', 'en-US' => 'en'],
+            'languages' => ['zh-CN' => '中文'],
+            'languageRedirects' => ['zh-CN' => 'zh'],
             'dashboardLayout' => '@backend/views/layouts/main.php'
         ],
         'settings' => [

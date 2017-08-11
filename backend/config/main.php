@@ -36,18 +36,13 @@ return [
         ],
         'post' => [
             'class' => 'yeesoft\post\PostModule',
-            'components' => [
-                'view' => [
-                    'class' => 'yii\web\View',
-                    'theme' => [
-                        'basePath' => '@app/themes/post',
-                        'baseUrl' => '@web/themes/post',
-                        'pathMap' => [
-                            '@app/views' => '@app/themes/post',
-                        ],
-                    ],
-                ],
-            ]
+            'viewPath' => '@yeesoft/yii2-yee-post/views',
+            'viewList' => [
+                'article' => '资讯',
+            ],
+            'layoutList' => [
+                'mobile' => '移动端',
+            ],
         ],
         'page' => [
             'class' => 'yeesoft\page\PageModule',

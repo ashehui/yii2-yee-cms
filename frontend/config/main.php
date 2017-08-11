@@ -5,6 +5,7 @@ $params = array_merge(
 
 return [
     'id' => 'frontend',
+    'name' => '观天资讯',
     'homeUrl' => '/',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -15,52 +16,17 @@ return [
         ],
     ],
     'components' => [
-        'view' => [
-            'theme' => [
-                'class' => 'frontend\components\Theme',
-                'theme' => 'readable', //cerulean, cosmo, default, flatly, readable, simplex, united
-            ],
-            'as seo' => [
-                'class' => 'yeesoft\seo\components\SeoViewBehavior',
-            ]
-        ],
-        'seo' => [
-            'class' => 'yeesoft\seo\components\Seo',
-        ],
-        'request' => [
-            'baseUrl' => '',
-        ],
         'urlManager' => [
             'class' => 'yeesoft\web\MultilingualUrlManager',
             'showScriptName' => false,
             'enablePrettyUrl' => true,
-            'rules' => array(
-                '<module:auth>/<action:(logout|captcha)>' => '<module>/default/<action>',
-                '<module:auth>/<action:(oauth)>/<authclient:\w+>' => '<module>/default/<action>',
-            ),
             'multilingualRules' => [
-                '<module:auth>/<action:\w+>' => '<module>/default/<action>',
-                '<controller:(category|tag)>/<slug:[\w \-]+>' => '<controller>/index',
-                '<controller:(category|tag)>' => '<controller>/index',
-                '<slug:[\w \-]+>' => 'site/index/',
-                '/' => 'site/index',
-                '<action:[\w \-]+>' => 'site/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-            ],
-            'nonMultilingualUrls' => [
-                'auth/default/oauth',
-            ],
-        ],
-        'authClientCollection' => [
-            'class' => 'yii\authclient\Collection',
-        ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'pattern' => '<year:\d{4}>/<month:\d{2}>/<slug:[\w \-]+>',
+                    'route' => 'site/index/',
+                    'suffix' => '.html',
                 ],
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
         'errorHandler' => [

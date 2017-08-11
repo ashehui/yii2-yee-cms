@@ -10,36 +10,29 @@ return [
     'id' => 'app-mapi',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    //'defaultRoute' => 'field/index',
+    'defaultRoute' => 'article/index',
     'controllerNamespace' => 'mapi\controllers',
     'components' => [
-
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
-            ]
-        ],
-        */
 
         'urlManager' => [
             'class' => 'yeesoft\web\MultilingualUrlManager',
             'showScriptName' => false,
             'enablePrettyUrl' => true,
+            'suffix' => '.json',
             'rules' => [
-                '<action:(category|tag)>/<slug:[\w \-]+>' => 'article/<action>',
-                '<slug:[\w \-]+>' => 'article/index/',
-                '/' => 'article/index',
-                '<action:[\w \-]+>' => 'article/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                'cms/<action:(category|tag)>/<slug:[\w \-]+>' => 'article/<action>',
+                [
+                    'pattern' => 'article/<year:\d{4}>/<month:\d{2}>/<slug:[\w \-]+>',
+                    'route' => 'article/index/',
+                    'suffix' => '.html',
+                ],
+                'cms/<action:[\w \-]+>' => 'article/<action>',
+                'cms/<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
 
         'request' => [
-            'baseUrl' => '/cms',
+            'baseUrl' => '',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]
