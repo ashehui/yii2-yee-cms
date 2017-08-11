@@ -16,6 +16,9 @@ return [
         ],
     ],
     'components' => [
+        'request' => [
+            'baseUrl' => '/article',
+        ],
         'urlManager' => [
             'class' => 'yeesoft\web\MultilingualUrlManager',
             'showScriptName' => false,
