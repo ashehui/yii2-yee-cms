@@ -68,7 +68,12 @@ class ArticleController extends \yii\web\Controller
         }
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'updated_at' => SORT_DESC
+                ]
+            ]
         ]);
 
         $data = [];

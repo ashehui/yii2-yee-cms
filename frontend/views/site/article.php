@@ -19,14 +19,6 @@ $this->params['breadcrumbs'][] = $post->title;
             <span >由 <?= $post->author->username ?> 发布于 <?= $post->publishedDate ?></span>
         </p>
 
-        <p class="pull-left text-justify" style="margin-top:10px;">
-            <?= $post->getThumbnail(['class' => 'thumbnail', 'style' => 'width:80%; height:80px; text-align:center; margin: 0 7px 7px 0']) ?>
-        </p>
-
-        <div class="text-justify" style="clear:both;">
-            <?= $post->content ?>
-        </div>
-
         <div class="clearfix" style="margin-bottom: 10px;">
             <div class="pull-left">
                 <?php if ($post->category): ?>
@@ -43,5 +35,7 @@ $this->params['breadcrumbs'][] = $post->title;
             </div>
         </div>
 
-
+        <div class="text-justify" style="clear:both;">
+            <?= $post->content ?>
+        </div>
     </div>
